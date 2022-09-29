@@ -4,12 +4,12 @@ pipeline {
     stages {
         stage('scm') {
             steps {
-                git ''
+                git 'https://github.com/nandakishore1991/jenkins.git'
             }
         }
         stage('docker build') {
             steps {
-                sh 'sudo docker build  -t  ashishshiv2606/pipeline:v1  . '
+                sh 'sudo docker build  -t  kishore9691/sonar:v1  . '
             }
         }
         stage('docker images') {
@@ -17,14 +17,9 @@ pipeline {
                 sh 'sudo docker images'
             }
         }
-        stage('docker rm') {
-            steps {
-                sh 'sudo docker rm -f pipe1'
-            }
-        }
         stage('docker run') {
             steps {
-                sh 'sudo docker run -d --name pipe1  -p 8099:80 ashishshiv2606/pipeline:v1'
+                sh 'sudo docker run -d --name sonar1  -p 8081:80 kishore9691/sonar:v1'
             }
         }
         stage('docker login') {
@@ -34,7 +29,7 @@ pipeline {
         }
         stage('docker push') {
             steps {
-                sh 'sudo docker push ashishshiv2606/pipeline:v1'
+                sh 'sudo docker push kishore9691/sonar:v1'
             }
         }
         stage('print success') {
